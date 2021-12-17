@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-
 const errorMiddleware = require("./middleware/errors");
 
-app.use(express.json());
 // middleware
+app.use(express.json());
+app.use(cookieParser());
 app.use(morgan("dev"));
+
 
 // Import all routes
 const products = require("./routes/product");
