@@ -159,3 +159,25 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({success: true, message: "Logged out"})
 })
 
+// Admin Routes
+//  Get all user => /api/v1/admin/users
+
+exports.allUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({success: true, users})
+});
+
+// Get user details => /api/v1/admin/user/:id
+exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if(!user){
+    return next(new ErrorHandler(`User with id: ${req.params.id} does not exist`));
+  }
+
+  res.status(200).json({success: true, user});
+})
+
+
+
