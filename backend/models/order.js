@@ -61,10 +61,10 @@ const orderSchema = mongoose.Schema({
 			type: String
 		}
 	},
-
 	paidAt: {
 		type: Date
 	},
+
 	itemsPrice: {
 		type: Number,
 		required: true,
