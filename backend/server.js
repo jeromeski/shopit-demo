@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 
 // Handle Uncaught exceptions
 process.on("uncaughtException", (err) => {
-	console.log(`ERROR: ${err.message}`);
+	console.log(`ERROR: ${err.stack}`);
 	console.log("Shutting down the server due to Uncaught exceptions");
 	server.close(() => {
 		process.exit(1);
