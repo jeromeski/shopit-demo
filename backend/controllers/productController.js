@@ -23,13 +23,13 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 		.pagination(resPerPage);
 	const products = await apiFeatures.query;
 
-	setTimeout(() => {
+
 		res.status(200).json({
 			success: true,
 			productsCount,
 			products
 		});
-	}, 2000);
+
 });
 
 // Get single product ==> /api/v1/product/:id
