@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import { useAlert } from "react-alert";
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProductDetails } from "../../actions/productActions";
 import Loader from "../layout/Loader";
@@ -70,8 +72,8 @@ const ProductDetails = ({ match }) => {
 
 								<p>
 									Status:{" "}
-									<span id="stock_status">
-										{product.numOfReviews > 0 ? "In Stock" : "No Stock"}
+									<span id="stock_status" className={product.stock ? "greenColor" : "redColor"}>
+										{product.stock > 0 ? "In Stock" : "Out Of Stock"}
 									</span>
 								</p>
 
