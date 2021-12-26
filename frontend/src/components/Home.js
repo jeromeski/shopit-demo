@@ -7,7 +7,7 @@ import Product from "./product/Product";
 import Loader from "./layout/Loader";
 import { useAlert } from "react-alert";
 
-const Home = () => {
+const Home = ({ match }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const alert = useAlert();
@@ -17,16 +17,21 @@ const Home = () => {
 		(state) => state.products
 	);
 
+	const keyword = match.params.keyword;
+
 	useEffect(() => {
 		if (error) {
 			return alert.error(error);
 		}
-		dispatch(getProducts(currentPage));
-	}, [dispatch, error, alert, currentPage]);
+		dispatch(getProducts(keyword, currentPage));
+	}, [dispatch, error, alert, keyword, currentPage]);
 
 	function setCurrentPageNo(pageNumber) {
 		setCurrentPage(pageNumber);
 	}
+
+	console.count("Home :");
+	console.log(productsCount);
 
 	return (
 		<Fragment>
@@ -43,18 +48,20 @@ const Home = () => {
 						</div>
 					</section>
 					<div className="d-flex justify-content-center mt-5">
-						<Pagination
-							activePage={currentPage}
-							itemsCountPerPage={resPerPage}
-							totalItemsCount={productsCount}
-							onChange={setCurrentPageNo}
-							nextPageText={"Next"}
-							prevPageText={"Prev"}
-							firstPageText={"First"}
-							lastPageText={"Last"}
-							itemClass="page-item"
-							linkClass="page-link"
-						/>
+						{productsCount && (
+							<Pagination
+								activePage={currentPage}
+								itemsCountPerPage={resPerPage}
+								totalItemsCount={productsCount}
+								onChange={setCurrentPageNo}
+								nextPageText={"Next"}
+								prevPageText={"Prev"}
+								firstPageText={"First"}
+								lastPageText={"Last"}
+								itemClass="page-item"
+								linkClass="page-link"
+							/>
+						)}
 					</div>
 				</Fragment>
 			)}
