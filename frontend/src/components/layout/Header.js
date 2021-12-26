@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Search from "./Search";
 
 const Header = () => {
@@ -8,7 +8,9 @@ const Header = () => {
 			<nav className="navbar row">
 				<div className="col-12 col-md-3">
 					<div className="navbar-brand">
-						<img src="/images/shopit_logo.png" alt="shopit-logo" />
+						<Link to="/">
+							<img src="/images/shopit_logo.png" alt="shopit-logo" />
+						</Link>
 					</div>
 				</div>
 				<div className="col-12 col-md-6 mt-2 mt-md-0">
