@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Route } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Search from "./Search";
+import { logout } from "../../actions/userActions";
 
 const Header = () => {
 	const alert = useAlert();
 	const dispatch = useDispatch();
 	const { user, loading } = useSelector((state) => state.auth);
 
-	useEffect(() => {}, [user]);
-
 	const logoutHandler = () => {
-		//
+		dispatch(logout());
+		alert.success("Logout success!");
 	};
 
 	return (
