@@ -144,11 +144,27 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 // Update user profile => /api/v1/me/update
 exports.updateProfile = catchAsyncErrors(async (req, res) => {
+  
 	const newUserData = {
 		name: req.body.name,
 		email: req.body.email
 	};
-	// Update avatar: TODO
+
+	if (req.body.avatar !== "") {
+		const user = await User.findById(req.user.id);
+		const image_id = user.avatar.public_id;
+
+		const result = await cloudinary.v2.upload(req.body.avatar, {
+			folder: "avatars",
+			width: 150,
+			crop: "scale"
+		});
+
+		newUserData.avatar = {
+			public_id: result.public_id,
+			url: result.secure_url
+		};
+	}
 
 	const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
 		new: true,
