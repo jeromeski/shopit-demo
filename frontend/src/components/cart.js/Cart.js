@@ -12,6 +12,22 @@ const Cart = ({ history }) => {
 
 	const { cartItems } = useSelector((state) => state.cart);
 
+	const increaseQty = (id, quantity, stock) => {
+		const newQty = quantity + 1;
+
+		if (newQty > stock) return;
+
+		dispatch(addItemToCart(id, newQty));
+	};
+
+	const decreaseQty = (id, quantity) => {
+		const newQty = quantity - 1;
+
+		if (newQty <= 0) return;
+
+		dispatch(addItemToCart(id, newQty));
+	};
+
 	return (
 		<Fragment>
 			<MetaData title={"Your Cart"} />
@@ -32,7 +48,7 @@ const Cart = ({ history }) => {
 									<div className="cart-item" key={item.product}>
 										<div className="row">
 											<div className="col-4 col-lg-3">
-												<img src={item.image} alt={item.product} height="90" width="115" />
+												<img src={item.image} alt="Laptop" height="90" width="115" />
 											</div>
 
 											<div className="col-5 col-lg-3">
@@ -45,7 +61,11 @@ const Cart = ({ history }) => {
 
 											<div className="col-4 col-lg-3 mt-4 mt-lg-0">
 												<div className="stockCounter d-inline">
-													<span className="btn btn-danger minus">-</span>
+													<span
+														className="btn btn-danger minus"
+														onClick={() => decreaseQty(item.product, item.quantity)}>
+														-
+													</span>
 
 													<input
 														type="number"
@@ -54,7 +74,11 @@ const Cart = ({ history }) => {
 														readOnly
 													/>
 
-													<span className="btn btn-primary plus">+</span>
+													<span
+														className="btn btn-primary plus"
+														onClick={() => increaseQty(item.product, item.quantity, item.stock)}>
+														+
+													</span>
 												</div>
 											</div>
 
@@ -73,19 +97,10 @@ const Cart = ({ history }) => {
 								<h4>Order Summary</h4>
 								<hr />
 								<p>
-									Subtotal:{" "}
-									<span className="order-summary-values">
-										{cartItems.reduce((acc, item) => acc + Number(item.quantity), 0)} (Units)
-									</span>
+									Subtotal: <span className="order-summary-values">3</span>
 								</p>
 								<p>
-									Est. total:{" "}
-									<span className="order-summary-values">
-										$
-										{cartItems
-											.reduce((acc, item) => acc + item.quantity * item.price, 0)
-											.toFixed(2)}
-									</span>
+									Est. total: <span className="order-summary-values">$ 300</span>
 								</p>
 
 								<hr />
