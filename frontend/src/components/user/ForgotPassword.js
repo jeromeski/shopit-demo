@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, forgotPassword } from "../../actions/userActions";
+import MetaData from "../layout/MetaData";
 
 const ForgotPassword = ({ history }) => {
 	const [email, setEmail] = useState("");
@@ -33,6 +34,7 @@ const ForgotPassword = ({ history }) => {
 	};
 	return (
 		<Fragment>
+			<MetaData title="Forgot Password" />
 			<div className="container-container-fluid" onSubmit={submitHandler}>
 				<div className="row wrapper">
 					<div className="col-10 col-lg-5">
