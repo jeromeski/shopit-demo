@@ -104,10 +104,19 @@ const Cart = ({ history }) => {
 								<h4>Order Summary</h4>
 								<hr />
 								<p>
-									Subtotal: <span className="order-summary-values">3</span>
+									Subtotal:{" "}
+									<span className="order-summary-values">
+										{cartItems.reduce((acc, item) => acc + Number(item.quantity), 0)} (Units)
+									</span>
 								</p>
 								<p>
-									Est. total: <span className="order-summary-values">$ 300</span>
+									Est. total:{" "}
+									<span className="order-summary-values">
+										$
+										{cartItems
+											.reduce((acc, item) => acc + item.quantity * item.price, 0)
+											.toFixed(2)}
+									</span>
 								</p>
 
 								<hr />
