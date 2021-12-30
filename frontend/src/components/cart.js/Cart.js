@@ -5,7 +5,7 @@ import MetaData from "../layout/MetaData";
 
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../../actions/cartActions";
+import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 
 const Cart = ({ history }) => {
 	const dispatch = useDispatch();
@@ -28,6 +28,10 @@ const Cart = ({ history }) => {
 		dispatch(addItemToCart(id, newQty));
 	};
 
+	const removeCartItemHandler = (id) => {
+		dispatch(removeItemFromCart(id));
+	};
+
 	return (
 		<Fragment>
 			<MetaData title={"Your Cart"} />
@@ -42,13 +46,13 @@ const Cart = ({ history }) => {
 					<div className="row d-flex justify-content-between">
 						<div className="col-12 col-lg-8">
 							{cartItems.map((item) => (
-								<Fragment>
+								<Fragment key={item.product}>
 									<hr />
 
-									<div className="cart-item" key={item.product}>
+									<div className="cart-item">
 										<div className="row">
 											<div className="col-4 col-lg-3">
-												<img src={item.image} alt="Laptop" height="90" width="115" />
+												<img src={item.image} alt={item.name} height="90" width="115" />
 											</div>
 
 											<div className="col-5 col-lg-3">
@@ -83,7 +87,10 @@ const Cart = ({ history }) => {
 											</div>
 
 											<div className="col-4 col-lg-1 mt-4 mt-lg-0">
-												<i id="delete_cart_item" className="fa fa-trash btn btn-danger"></i>
+												<i
+													id="delete_cart_item"
+													className="fa fa-trash btn btn-danger"
+													onClick={() => removeCartItemHandler(item.product)}></i>
 											</div>
 										</div>
 									</div>
