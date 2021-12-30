@@ -8,6 +8,7 @@ import { clearErrors, getProductDetails } from "../../actions/productActions";
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
 import { useState } from "react";
+import { addItemToCart } from "../../actions/cartActions";
 
 const ProductDetails = ({ match }) => {
 	const [quantity, setQuantity] = useState(1);
@@ -40,6 +41,11 @@ const ProductDetails = ({ match }) => {
 
 		const qty = count.valueAsNumber - 1;
 		setQuantity(qty);
+	};
+
+	const addToCart = () => {
+		dispatch(addItemToCart(match.params.id, quantity));
+		alert.success("Item added to cart");
 	};
 
 	return (
@@ -94,7 +100,12 @@ const ProductDetails = ({ match }) => {
 										+
 									</span>
 								</div>
-								<button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4">
+								<button
+									type="button"
+									id="cart_btn"
+									className="btn btn-primary d-inline ml-4"
+									disabled={product.stock === 0}
+									onClick={addToCart}>
 									Add to Cart
 								</button>
 
