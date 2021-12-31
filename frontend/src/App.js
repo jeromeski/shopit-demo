@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import ProductDetails from "./components/product/ProductDetails";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import store from "./store";
 import { loadUser } from "./actions/userActions";
 import Profile from "./components/user/Profile";
@@ -18,10 +18,23 @@ import NewPassword from "./components/user/NewPassword";
 import Cart from "./components/cart.js/Cart";
 import Shipping from "./components/cart.js/Shipping";
 import ConfirmOrder from "./components/cart.js/ConfirmOrder";
+import axios from "axios";
 
 function App() {
+	const [stripeApiKey, setStripeApiKey] = useState("");
+
+	async function getStripeApiKey() {
+		const { data } = await axios.get("/api/v1/stripeapi");
+		setStripeApiKey(data.stripeApiKey);
+	}
+
 	useEffect(() => {
 		store.dispatch(loadUser());
+		try {
+			getStripeApiKey();
+		} catch (error) {
+			return console.log(error.response.data.message);
+		}
 	}, []);
 
 	return (
