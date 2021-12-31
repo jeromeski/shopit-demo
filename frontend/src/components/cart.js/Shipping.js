@@ -4,6 +4,7 @@ import MetaData from "../layout/MetaData";
 
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../../actions/cartActions";
+import CheckoutSteps from "../CheckoutSteps";
 
 const Shipping = ({ history, location }) => {
 	const countriesList = Object.values(countries);
@@ -27,6 +28,8 @@ const Shipping = ({ history, location }) => {
 	return (
 		<Fragment>
 			<MetaData title={"Shipping Info"} />
+
+			<CheckoutSteps shipping />
 
 			<div className="row wrapper">
 				<div className="col-10 col-lg-5">
