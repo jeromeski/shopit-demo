@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import MetaData from "../layout/MetaData";
 
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 
@@ -11,6 +10,10 @@ const Cart = ({ history }) => {
 	const dispatch = useDispatch();
 
 	const { cartItems } = useSelector((state) => state.cart);
+
+	const removeCartItemHandler = (id) => {
+		dispatch(removeItemFromCart(id));
+	};
 
 	const increaseQty = (id, quantity, stock) => {
 		const newQty = quantity + 1;
@@ -28,8 +31,8 @@ const Cart = ({ history }) => {
 		dispatch(addItemToCart(id, newQty));
 	};
 
-	const removeCartItemHandler = (id) => {
-		dispatch(removeItemFromCart(id));
+	const checkoutHandler = () => {
+		history.push("/login?redirect=shipping");
 	};
 
 	return (
@@ -52,7 +55,7 @@ const Cart = ({ history }) => {
 									<div className="cart-item">
 										<div className="row">
 											<div className="col-4 col-lg-3">
-												<img src={item.image} alt={item.name} height="90" width="115" />
+												<img src={item.image} alt="Laptop" height="90" width="115" />
 											</div>
 
 											<div className="col-5 col-lg-3">
@@ -120,7 +123,10 @@ const Cart = ({ history }) => {
 								</p>
 
 								<hr />
-								<button id="checkout_btn" className="btn btn-primary btn-block">
+								<button
+									id="checkout_btn"
+									className="btn btn-primary btn-block"
+									onClick={checkoutHandler}>
 									Check out
 								</button>
 							</div>
