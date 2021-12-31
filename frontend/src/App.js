@@ -17,6 +17,7 @@ import ForgotPassword from "./components/user/ForgotPassword";
 import NewPassword from "./components/user/NewPassword";
 import Cart from "./components/cart.js/Cart";
 import Shipping from "./components/cart.js/Shipping";
+import ConfirmOrder from "./components/cart.js/ConfirmOrder";
 
 function App() {
 	useEffect(() => {
@@ -36,7 +37,8 @@ function App() {
 					<Route path="/password/forgot" component={ForgotPassword} exact />
 					<Route path="/password/reset/:token" component={NewPassword} exact />
 					<Route path="/cart" exact component={Cart} />
-					<Route path="/shipping" exact component={Shipping} />
+					<ProtectedRoute path="/shipping" exact component={Shipping} />
+					<ProtectedRoute path="/order/confirm" exact component={ConfirmOrder} />
 					<ProtectedRoute path="/me" component={Profile} exact />
 					<ProtectedRoute path="/me/update" component={UpdateProfile} exact />
 					<ProtectedRoute path="/password/update" component={UpdatePassword} exact />
