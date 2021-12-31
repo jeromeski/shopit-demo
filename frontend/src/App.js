@@ -37,11 +37,11 @@ function App() {
 					<Route path="/password/forgot" component={ForgotPassword} exact />
 					<Route path="/password/reset/:token" component={NewPassword} exact />
 					<Route path="/cart" exact component={Cart} />
-					<ProtectedRoute path="/shipping" exact component={Shipping} />
-					<ProtectedRoute path="/order/confirm" exact component={ConfirmOrder} />
-					<ProtectedRoute path="/me" component={Profile} exact />
-					<ProtectedRoute path="/me/update" component={UpdateProfile} exact />
-					<ProtectedRoute path="/password/update" component={UpdatePassword} exact />
+					<ProtectedRoute path="/shipping" component={Shipping} />
+					<ProtectedRoute path="/order/confirm" component={ConfirmOrder} />
+					<ProtectedRoute path="/me" component={Profile} />
+					<ProtectedRoute path="/me/update" component={UpdateProfile} />
+					<ProtectedRoute path="/password/update" component={UpdatePassword} />
 				</div>
 				<Footer />
 			</div>
